@@ -1,6 +1,7 @@
 ---
 title: "30538 Problem Set 3: git pair"
-author: "Tianhao Zhang"
+author: "Tianhao and Yuki"
+
 format: 
   pdf:
     include-in-header: 
@@ -24,21 +25,48 @@ import numpy as np
 import altair as alt
 
 np.random.seed(42)
+
+# DataFrame with 100 random numbers
 data = pd.DataFrame(np.random.rand(100), columns=['Random Numbers'])
 
 def preview_data(df):
-    head_data = df.head()
 
+import pandas as pd
+import numpy as np
+import altair as alt
+
+np.random.seed(42)
+
+data = pd.DataFrame(np.random.rand(100), columns=['Random Numbers'])
+
+def preview_data(df):
+    # Get the head of the DataFrame
+    head = df.head()
+
+    # Get descriptive statistics of the DataFrame
+    description = df.describe()
+
+    # Generate a histogram using Altair
     histogram = alt.Chart(df).mark_bar().encode(
-        alt.X('Random Numbers', bin=alt.Bin(maxbins=30)),  
+        alt.X('Random Numbers', bin=alt.Bin(maxbins=30)),
         y='count()'
     ).properties(
         title='Histogram of Random Numbers'
     )
 
-    return [head_data, histogram]
+    return [head, description, histogram]
 
-result = preview_data(data)
-result[0], result[1]
+
+results = preview_data(data)
+
+
+print("Head of the DataFrame:")
+print(results[0])  # Print the head of the dataframe
+print("\nDescriptive Statistics of the DataFrame:")
+print(results[1])  # Print the descriptive statistics
+
+
+results[2].display()
+
 
 ```
